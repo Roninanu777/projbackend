@@ -2,6 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || 8000;
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -9,8 +10,11 @@ mongoose
     useUnifiedTopology: true,
     useCreateIndex: true,
   })
-  .then(() => console.log("MongoDB connected..."));
+  .then(() => console.log("MongoDB connected..."))
+  .catch((err) => {
+    console.log("Error", err);
+  });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server listening on PORT ${process.env.PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server listening on PORT ${PORT}`);
 });
